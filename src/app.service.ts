@@ -3,15 +3,17 @@ import { EmailTemplateService } from './service/email-template.service';
 import { Text } from './components/Text';
 import { Button } from './components/Button';
 import { writeFile } from 'fs';
+import { Header } from './components/Header';
 
 @Injectable()
 export class AppService {
   constructor(private readonly emailTemplateService: EmailTemplateService) {}
   getEmail(): string {
+    const heder = Header();
     const text = Text({ text: 'Hello, World!' });
     const sendButton = Button({ text: 'Send', link: 'https://google.com' });
 
-    this.emailTemplateService.addComponents([text, sendButton]);
+    this.emailTemplateService.addComponents([heder, text, sendButton]);
     return this.emailTemplateService.render();
   }
 
