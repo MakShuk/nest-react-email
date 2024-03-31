@@ -4,16 +4,23 @@ import { Text } from './components/Text';
 import { Button } from './components/Button';
 import { writeFile } from 'fs';
 import { Header } from './components/Header';
+import { Heading } from './components/Heading';
 
 @Injectable()
 export class AppService {
   constructor(private readonly emailTemplateService: EmailTemplateService) {}
   getEmail(): string {
+    const headingH2 = Heading({ text: 'Email Test H2' });
     const heder = Header();
     const text = Text({ text: 'Hello, World!' });
     const sendButton = Button({ text: 'Send', link: 'https://google.com' });
 
-    this.emailTemplateService.addComponents([heder, text, sendButton]);
+    this.emailTemplateService.addComponents([
+      headingH2,
+      heder,
+      text,
+      sendButton,
+    ]);
     return this.emailTemplateService.render();
   }
 
