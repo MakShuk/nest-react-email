@@ -4,7 +4,7 @@ import { EmailTemplateService } from './service/email-template.service';
 @Injectable()
 export class AppService {
   constructor(private readonly emailTemplateService: EmailTemplateService) {}
-  getHello(): string {
+  getEmail(): string {
     const emailHTML = this.emailTemplateService.render();
     return emailHTML;
   }

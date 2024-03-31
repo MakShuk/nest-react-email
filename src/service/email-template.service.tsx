@@ -1,18 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Html, Text, render } from '@react-email/components';
-import * as React from 'react';
+import { Html, render } from '@react-email/components';
+import React, { ReactElement } from 'react';
 
 @Injectable()
 export class EmailTemplateService {
-  send({ name }: { name: string }) {
-    return (
-      <Html lang="ru">
-        <Text>{name}</Text>
-      </Html>
-    );
-  }
+  components: ReactElement[];
 
   render() {
-    return render(this.send({ name: 'Hello World' }));
+    return render(<Html lang="ru">{this.components}</Html>);
   }
 }
