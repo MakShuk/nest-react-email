@@ -9,19 +9,26 @@ export class AppService {
   constructor(private readonly emailTemplateService: EmailTemplateService) {}
   getEmail(): string {
     const text = Text({ text: 'Hello, World!' });
-    const sendButton = Button({ text: 'Send' });
+    const sendButton = Button({ text: 'Send', link: 'https://google.com' });
 
     this.emailTemplateService.addComponents([text, sendButton]);
     return this.emailTemplateService.render();
   }
 
-  saveToFile() {
-    writeFile('email.html', this.getEmail(), (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log('Email has been saved to email.html');
-      }
-    });
+  async saveToFile() {
+    try {
+      const result: string = await new Promise((resolve, reject) => {
+        writeFile('email.html', this.getEmail(), async (err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve('Email has been saved to email.html');
+          }
+        });
+      });
+      return result;
+    } catch (err) {
+      return (err as Error).message;
+    }
   }
 }

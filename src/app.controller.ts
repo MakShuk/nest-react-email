@@ -11,7 +11,7 @@ export class AppController {
   }
 
   @Post()
-  saveToFile(): void {
-    this.appService.saveToFile();
+  async saveToFile(): Promise<string> {
+    return await this.appService.saveToFile();
   }
 }
